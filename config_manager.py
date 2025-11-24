@@ -16,7 +16,7 @@ class ConfigManager:
         "model_type": "deeplab",
         "encoder": "resnet34",
         "tile_sz": 512,
-        "batch_size": 2,  # Increased from 1 for better training
+        "batch_size": 4,  # Optimal for batch normalization, adjusted for GPU memory
         "classes": ["wall", "door", "window", "furn"],
         "train_images": [],
         "mask_folder": "masks",
