@@ -66,11 +66,13 @@ class Model3DExporter:
             scene_meshes = []
             
             # Create wall meshes with openings
+            # Convert door_polys to set for O(1) lookups
+            door_polys_set = set(door_polys)
             for wall_poly in wall_polys:
                 wall_mesh = self._create_wall_mesh(
                     wall_poly,
                     door_polys + window_polys,
-                    door_polys
+                    door_polys_set
                 )
                 if wall_mesh is not None:
                     scene_meshes.append(wall_mesh)
@@ -144,7 +146,7 @@ class Model3DExporter:
         self,
         wall_poly,
         opening_polys: list,
-        door_polys: list
+        door_polys_set: set
     ):
         """
         Create wall mesh with door and window openings.
@@ -175,8 +177,8 @@ class Model3DExporter:
                     continue
                 
                 try:
-                    # Determine opening height
-                    if opening_poly in door_polys:
+                    # Determine opening height (using set for O(1) lookup)
+                    if opening_poly in door_polys_set:
                         # Door: full height
                         opening_mesh = trimesh.creation.extrude_polygon(
                             opening_poly,

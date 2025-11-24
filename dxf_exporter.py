@@ -211,11 +211,16 @@ def extract_lines_from_mask(
         
     Returns:
         List of line tuples ((x1, y1), (x2, y2))
+        
+    Note:
+        FastLineDetector requires opencv-contrib-python package.
+        Falls back to HoughLinesP if not available.
     """
     lines = []
     
     try:
         # Try FastLineDetector first (more accurate)
+        # Requires: opencv-contrib-python
         fld = cv2.ximgproc.createFastLineDetector(length_threshold=min_length)
         detected = fld.detect(mask)
         

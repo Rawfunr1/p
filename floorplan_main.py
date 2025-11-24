@@ -8,7 +8,7 @@ import os
 import sys
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 
 # Configure logging
 logging.basicConfig(
@@ -48,7 +48,7 @@ def check_dependencies() -> bool:
     return True
 
 
-def setup_environment() -> tuple[Path, Path]:
+def setup_environment() -> Tuple[Path, Path]:
     """
     Setup working directories and configuration.
     
